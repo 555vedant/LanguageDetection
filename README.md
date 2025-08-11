@@ -41,8 +41,7 @@ language_detective_service/
 ### 1. Clone or Create Project Directory
 
 ```bash
-mkdir language_detective_service
-cd language_detective_service
+git clone https://github.com/555vedant/LanguageDetection.git
 ```
 
 ### 2. Set Up Virtual Environment

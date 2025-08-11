@@ -90,6 +90,4 @@ curl -X POST http://127.0.0.1:8000/detect/language \
 ## Notes
 
 - **Mocked Implementation**: No real APIs used; all connectors return fake data (languages, timings, zero costs).
-- **File Upload**: Files are saved to `audio_files/` but not processed by mocks.
-- **Evaluation Fit**: Meets assignment requirements for connectors, coordinator, API, UI, and Indian language support (mocked "hi", "ta").
-- **Security**: Basic file upload handling; production use would need file type/size validation.
+

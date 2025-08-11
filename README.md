@@ -3,7 +3,7 @@
 A FastAPI-based service to detect spoken languages in audio files using mocked connectors for OpenAI, Google Gemini, Sarvam AI, and ElevenLabs. Features a web UI for file upload and result display, with files saved to an `audio_files/` directory. Designed for the DripLink BE Intern Assignment.
 
 ## UI
-![Web UI Screenshot](images/Screenshot 2025-08-12 005635.png)
+![Web UI Screenshot](images/ui.png)
 
 ## Project Structure
 

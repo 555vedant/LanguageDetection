@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Detective Service</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { margin-bottom: 20px; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        #results { border: 1px solid #ddd; padding: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Language Detective Service (Mocked)</h1>
+    <p>Upload an audio file and specify ground truth language, then submit to detect languages using mocked providers.</p>
+    
+    <form id="detectForm" enctype="multipart/form-data">
+        <label for="file">Audio File:</label>
+        <input type="file" id="file" name="file" accept=".mp3,.wav" required><br>
+        
+        <label for="ground_truth_language">Ground Truth Language:</label>
+        <input type="text" id="ground_truth_language" name="ground_truth_language" value="en" required><br>
+        
+        <button type="submit">Detect Language</button>
+    </form>
+    
+    <div id="results"></div>
+    
+    <script>
+        const form = document.getElementById('detectForm');
+        const resultsDiv = document.getElementById('results');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('/detect/language', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) throw new Error('Error from server');
+                const results = await response.json();
+                
+                // Display results in a table
+                let html = '<h2>Results:</h2><table><thead><tr><th>Provider</th><th>Language</th><th>Time Taken (s)</th><th>Cost (Tokens/Dollars)</th><th>Status</th><th>Error</th></tr></thead><tbody>';
+                results.forEach(result => {
+                    html += `<tr>
+                        <td>${result.provider}</td>
+                        <td>${result.language || 'N/A'}</td>
+                        <td>${result.time_taken.toFixed(2)}</td>
+                        <td>${result.estimated_cost.tokens} / $${result.estimated_cost.dollars.toFixed(2)}</td>
+                        <td>${result.status}</td>
+                        <td>${result.error || 'None'}</td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
+                resultsDiv.innerHTML = html;
+            } catch (error) {
+                resultsDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

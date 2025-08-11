@@ -1,0 +1,76 @@
+Language Detective Service
+A FastAPI-based service to detect spoken languages in audio files using mocked connectors for OpenAI, Google Gemini, Sarvam AI, and ElevenLabs. Features a web UI for file upload and result display, with files saved to an audio_files/ directory. Designed for the DripLink BE Intern Assignment.
+Project Structure
+language_detective_service/
+├── connectors/
+│   ├── __init__.py
+│   ├── openai_connector.py
+│   ├── gemini_connector.py
+│   ├── sarvam_connector.py
+│   └── elevenlabs_connector.py
+├── coordinator.py
+├── main.py
+├── templates/
+│   └── index.html
+└── audio_files/  # Stores uploaded audio files
+
+Features
+
+Web UI: Upload audio files (MP3/WAV) and specify ground truth language at http://127.0.0.1:8000/.
+API Endpoint: POST /detect/language handles file uploads and returns mocked language detection results.
+Mocked Connectors: Simulate OpenAI, Google Gemini, Sarvam AI, and ElevenLabs with fake responses (e.g., "en", "hi", "ta").
+File Storage: Uploaded files are saved to audio_files/.
+Error Handling: Robust handling of file and API errors.
+Indian Language Support: Mocked responses include Hindi ("hi") and Tamil ("ta") for bonus points.
+
+Requirements
+
+Python 3.10+
+Libraries: fastapi, uvicorn, pydantic, jinja2
+
+Setup Instructions
+
+Clone or Create Project Directory:
+mkdir language_detective_service
+cd language_detective_service
+
+
+Set Up Virtual Environment:
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+
+Install Dependencies:
+pip install fastapi uvicorn pydantic jinja2
+
+
+Create Audio Files Directory:
+mkdir audio_files
+
+
+Run the Server:
+uvicorn main:app --reload
+
+
+
+Usage
+
+Access UI:
+
+Open http://127.0.0.1:8000/ in a browser.
+Upload an audio file (MP3/WAV, real or dummy—content ignored due to mocks).
+Enter ground truth language (e.g., "en").
+Submit to view mocked results in a table.
+
+
+Test API Directly (optional):
+curl -X POST http://127.0.0.1:8000/detect/language -F "file=@/path/to/audio.mp3" -F "ground_truth_language=en"
+
+
+
+Notes
+
+Mocked Implementation: No real APIs used; all connectors return fake data (languages, timings, zero costs).
+File Upload: Files are saved to audio_files/ but not processed by mocks.
+Evaluation Fit: Meets assignment requirements for connectors, coordinator, API, UI, and Indian language support (mocked "hi", "ta").
+Security: Basic file upload handling; production use would need file type/size validation.

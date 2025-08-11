@@ -42,6 +42,7 @@ language_detective_service/
 
 ```bash
 git clone https://github.com/555vedant/LanguageDetection.git
+cd LanguageDetection
 ```
 
 ### 2. Set Up Virtual Environment
